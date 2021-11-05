@@ -1,0 +1,67 @@
+.container {
+  width: 40vw;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+.currency {
+  padding: 0 15px;
+  border: 2px solid cornflowerblue;
+  border-radius: 10px;
+  background-color: rgba(249, 247, 246, 0.9);
+}
+.currency h2 {
+  text-align: center;
+}
+.currency-names {
+  display: flex;
+}
+.currency-names p {
+  padding: 7px 0;
+}
+.currency ul {
+  list-style: none;
+  display: inline;
+}
+
+.currency li {
+  display: inline-block;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.currency-action {
+  display: flex;
+  justify-content: space-between;
+}
+
+.currency-action span {
+  width: 40%;
+  text-align: center;
+  padding: 10px;
+  border: 2px solid cornflowerblue;
+  border-radius: 10px;
+  color: cornflowerblue;
+  cursor: pointer;
+}
+.currency-action span.active {
+  color: white;
+  background-color: cornflowerblue;
+}
+.currencies {
+  padding: 5px 10px;
+  border: 2px solid cornflowerblue;
+  color: cornflowerblue;
+}
+.activeCurrency {
+  background-color: cornflowerblue;
+  color: white;
+}
+.fields label {
+  display: block;
+  margin-bottom: 20px;
+}
+.fields label input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+}
