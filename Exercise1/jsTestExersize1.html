@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>.red {color: red}</style>
+<input class="" type="text" name="name" id="input" value="YO!"/>
+
+<script>
+    (function changeColorStyle() {
+        let changeColor = document.getElementById("input");
+        changeColor.addEventListener("input", (e) => {
+            if(input.value !== e.target.defaultValue){
+                changeColor.classList.add("red")
+            }else {
+                changeColor.classList.remove("red")
+            }
+        })
+    })();
+</script>
+
+</body>
+</html>

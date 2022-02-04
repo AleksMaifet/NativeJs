@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>domain-one</title>
+</head>
+<body>
+
+<h1> domain_one </h1>
+<p>
+    <button id = "send"> Отправить запись </button>
+    <button id = "remove"> Удалить запись </button>
+    <button id = "read"> Прочитать запись </button>
+</p>
+
+<iframe id = "receiver" src = "http://localhost:63342/testovoe/Exersize4/domainTwo/receiver.html?_ijt=c9ovt0634o76bd72irdfo1glqm" width = "700" height = "200">
+    <p>Ваш браузер не поддерживает iframe.</p>
+</iframe>
+
+
+<script>
+    addEventListener("DOMContentLoaded", function(){
+        'use strict';
+        window.addEventListener ('message', function (e) {
+            let message = e.isTrusted;
+        });
+
+        localStorage.setItem('1','YoYoY0!!!');
+        localStorage.setItem('2','Yo, Bro!!!');
+        console.log(localStorage.getItem('1'));
+        console.log(localStorage.getItem('2'));
+
+        const receiver = document.getElementById('receiver').contentWindow;
+        const send = document.getElementById('send');
+        const remove = document.getElementById('remove');
+        const read = document.getElementById('read');
+        const objMessage = {};
+        objMessage.color = ' зеленый';
+        objMessage.createText	= "localStorage.setItem('3','Meeeeeen')";
+
+        let callbacks = {
+            "sendMessageCallback": function() {alert('send')},
+            "removeCallback": function() {alert('remove')},
+            "readCallback": function() {alert('written')}
+        };
+
+        window.addEventListener('message', function(event) {
+            try {callbacks[event.data]();}
+            catch(error) {
+                    console.error("Invalid callback")
+            }
+        });
+
+        function sendMessage(e) {
+            e.preventDefault();
+            objMessage.action = 'send';
+            objMessage.key	= '3';
+            objMessage.val = 'TextForLocalStorage';
+            objMessage.success = "sendMessageCallback";//JSONP
+            receiver.postMessage(objMessage, 'http://localhost:63342/testovoe/Exersize4/domainTwo/receiver.html?_ijt=c9ovt0634o76bd72irdfo1glqm');
+        }
+
+        function removeMessage(e) {
+            e.preventDefault();
+            objMessage.action = 'remove';
+            objMessage.key	= '3';
+            objMessage.val = '';
+            objMessage.success = "removeCallback";
+            receiver.postMessage(objMessage, ' http://localhost:63342/testovoe/Exersize4/domainTwo/receiver.html?_ijt=c9ovt0634o76bd72irdfo1glqm');
+        }
+
+        function readMessage(e) {
+            e.preventDefault();
+            objMessage.action = 'read';
+            objMessage.key	= '3';
+            objMessage.val = '';
+            objMessage.success = "readCallback";
+            receiver.postMessage(objMessage, ' http://localhost:63342/testovoe/Exersize4/domainTwo/receiver.html?_ijt=c9ovt0634o76bd72irdfo1glqm');
+        }
+        send.addEventListener('click', sendMessage);
+        remove.addEventListener('click', removeMessage);
+        read.addEventListener('click', readMessage);
+    });
+</script>
+
+</body>
+</html>

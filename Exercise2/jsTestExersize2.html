@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form class="block">
+    <div id="size">
+        <h4>Size</h4>
+        <label><input type="radio" id='size1' name='size' value="S">S</label>
+        <label><input type="radio" id='size2' name='size' value="M">M</label>
+        <label><input type="radio" id='size3' name='size' value="L">L</label>
+    </div>
+
+    <div id="color">
+        <h4>Color</h4>
+        <label><input type="checkbox" id="color1" name="color" value="1">1</label>
+        <label><input type="checkbox" id="color2" name="color" value="2">2</label>
+        <label><input type="checkbox" id="color3" name="color" value="3">3</label>
+        <label><input type="checkbox" id="color4" name="color" value="4">4</label>
+        <label><input type="checkbox" id="color5" name="color" value="5">5</label>
+    </div>
+
+    <div>
+        <h4>Manufacturer</h4>
+        <label><select multiple="multiple" name="manufacturer" id="manufacturer">
+            <option>aaa</option>
+            <option>b&c</option>
+            <option>ddd</option>
+            <option>eee</option>
+        </select></label>
+    </div>
+
+
+    <div class="sale">
+        <label><input type="checkbox" name="sale" value="sale">Sail</label>
+    </div>
+</form>
+<script>
+    const radios = document.querySelectorAll('[name="size"]');
+    const checkboxes = document.querySelectorAll('[name="color"]');
+    const options = document.querySelectorAll('[name="manufacturer"] option');
+    let url = new URL('http://somesite.com/filter?size=L&color=1,2&manufacturer=aaa,ddd');
+    let search = new URLSearchParams(url.search);
+
+    let size = search.get('size');
+    let colors = search.get('color').split(',');
+    let manufacturers = search.get('manufacturer').split(',');
+    let len1 = checkboxes.length;
+    let len2 = colors.length;
+    let len3 = radios.length;
+
+    for (let i = 0; i < len1, i < len3; i++) {
+        if (radios[i].value === size) {
+            radios[i].checked = true;
+        }
+        for (let j = 0; j < len2; j++) {
+            if (checkboxes[i].value === colors[j]) {
+                    checkboxes[i].checked = true;
+                }
+        }
+    }
+    options.forEach(el => {
+        if (manufacturers.includes(el.value)){
+            el.selected = true;
+        }
+    });
+
+    // part 2
+
+    function inputHandler({ target }) {
+        if (!target.matches("form [name]")) return;
+        let url = `http://somesite.com/filter?${new URLSearchParams(new FormData(target.form))}`;
+        let index = url.indexOf('&sale=sale');
+        let newurl = '';
+        if(index !== -1){
+          newurl = url.substring(0, index);
+        } else {
+            newurl = url;
+        }
+        console.log(newurl);
+    }
+
+    addEventListener("input", inputHandler);
+
+</script>
+
+
+</body>
+</html>

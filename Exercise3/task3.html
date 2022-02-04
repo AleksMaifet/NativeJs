@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p> Запросы в консоли</p>
+<script>
+    addEventListener("DOMContentLoaded", function () {
+        'use strict';
+
+        const selectItems = {
+            url_first: 'https://api.github.com/emojis',
+            url_all: 'https://api.github.com/search/users?q={query}{&page,per_page,sort,order}'
+        };
+        console.log('Start');
+
+        Promise.all([getTend(),getAllTend()]).then(value => {
+            console.log('оба ответа получены');
+        });
+
+        function getTend() {
+          return new Promise(resolve => {
+              let xhrGetTend = new XMLHttpRequest();
+              xhrGetTend.open('GET', selectItems.url_first);
+              xhrGetTend.responseType = 'json';
+              xhrGetTend.send();
+              xhrGetTend.onload = function (data) {
+                  if (xhrGetTend.status !== 200) {
+                      alert(`Ошибка ${xhrGetTend.status}: ${xhrGetTend.statusText}`)
+                  } else {
+                      console.dir(data.target.response);
+                      resolve( data.target.response)
+                  }
+              };
+          })
+        }
+
+        function getAllTend() {
+            return new Promise(resolve => {
+                let xhrGetAllTend = new XMLHttpRequest();
+                xhrGetAllTend.open('GET', selectItems.url_all);
+                xhrGetAllTend.responseType = 'json';
+                xhrGetAllTend.send();
+                xhrGetAllTend.onload = function (data) {
+                    if (xhrGetAllTend.status !== 200) {
+                        alert(`Ошибка ${xhrGetAllTend.status}: ${xhrGetAllTend.statusText}`)
+                    } else {
+                        console.dir(data.target.response);
+                        resolve( data.target.response);
+                    }
+                }
+            })
+    }});
+</script>
+<!--queriesFunctions from using $.ajax()-->
+<!--function getTend (){
+        $.ajax({
+            url: selectItems.url_first,
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+            console.dir(data);
+            getAllTend ();
+            }
+        });
+
+function getAllTend() {
+        $.ajax({
+            url: selectItems.url_all,
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+            console.dir(data);
+            console.log("success - 2 request got");
+            }
+        });-->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+</body>
+</html>
